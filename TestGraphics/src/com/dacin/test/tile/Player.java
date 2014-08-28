@@ -64,7 +64,7 @@ public class Player extends Tile {
 			if (input.w) {
 				if ((jump & 1) == 1) {
 					jump++;
-					yVel = 2;
+					yVel = 4.875f;
 				}
 
 			} else {
@@ -75,7 +75,7 @@ public class Player extends Tile {
 
 		}
 
-		yVel -= 0.05;
+		yVel -= 0.25;
 
 	}
 

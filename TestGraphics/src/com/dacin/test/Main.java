@@ -35,15 +35,16 @@ public class Main {
 		
 		
 		for(int i=0;i<8;i++){
-		ObjectLists.objList.addSpike(150+i*32*2, 210-4*i,0);
+		ObjectLists.objList.addSpike(150+i*32*2, 172,2);
+		ObjectLists.objList.addSpike(150+i*32*2, 236,0);
 		}
 		
 		for(int i=0;i<40;i++){
-			ObjectLists.objList.addBlock(50+i*16, 150);
+			ObjectLists.objList.addBlock(50+i*16, 140);
 			
 		}
 		ObjectLists.objList.addBlock(150, 200);
-		ObjectLists.objList.addBlock(150, 216);
+		ObjectLists.objList.addBlock(190, 216);
 		// init OpenGL here
 		
 		

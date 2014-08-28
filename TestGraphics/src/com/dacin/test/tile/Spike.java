@@ -42,10 +42,11 @@ public class Spike extends Tile {
 	public void colidePlayer(){
 		float plx=Main.player.x;
 		float ply=Main.player.y;
-		if(((plx-this.x)*(plx-this.x)+(ply-this.y)*(ply-this.y))>550+300) return;
 		//rotate to match up-state
-		float plnx=rotation==0 ? plx : rotation==1 ? x-(ply-y): rotation == 2 ? 2*x-plx : x+(ply-y);                   
-		float plny=rotation==0 ? ply : rotation==1 ? y+(plx-x): rotation == 2 ? 2*y-ply : y-(plx-x);           
+		float plnx=rotation==0 ? plx : rotation==1 ? x+(ply-y): rotation == 2 ? 2*x-plx : x-(ply-y);                   
+		float plny=rotation==0 ? ply : rotation==1 ? y-(plx-x): rotation == 2 ? 2*y-ply : y+(plx-x);  
+		//distance (for corners)
+		if(((plnx-this.x)*(plnx-this.x)+(plny-this.y+4)*(plny-this.y+4))>28*29) return;         
 		//3 triangle sides(circle hitbox)
 		if(plny < y-24) return;
 		if(plny > (2*plnx + y + 32 - 2*x)) return;
