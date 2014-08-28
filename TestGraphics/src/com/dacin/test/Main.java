@@ -32,10 +32,13 @@ public class Main {
 		lastFPS = getTime();
 		cube = new Cube(input);
 		player = new Player(200,200,input);
-		for(int i=0;i<4;i++){
-		ObjectLists.objList.addSpike(150+i*32*4, 200+i*8,1);
+		
+		
+		for(int i=0;i<8;i++){
+		ObjectLists.objList.addSpike(150+i*32*2, 210-4*i,0);
 		}
-		for(int i=0;i<20;i++){
+		
+		for(int i=0;i<40;i++){
 			ObjectLists.objList.addBlock(50+i*16, 150);
 			
 		}

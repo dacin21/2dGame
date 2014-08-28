@@ -14,85 +14,87 @@ public class Input {
 	public boolean s = false;
 	public boolean q = false;
 	public boolean e = false;
-	public Input(){
-		
+	public boolean r = false;
+
+	public Input() {
+
 	}
-	
-	public void getKeys(){
-		mouseX=Mouse.getX();
-		mouseY=Mouse.getY();
-		while(Keyboard.next()){
+
+	public void getKeys() {
+		mouseX = Mouse.getX();
+		mouseY = Mouse.getY();
+		while (Keyboard.next()) {
 			if (Keyboard.getEventKey() == Keyboard.KEY_UP) {
 				if (Keyboard.getEventKeyState()) {
-					up=true;
-			    }
-			    else {
-			        up=false;
-			    }
-			    continue;
+					up = true;
+				} else {
+					up = false;
+				}
+				continue;
 			}
 			if (Keyboard.getEventKey() == Keyboard.KEY_DOWN) {
 				if (Keyboard.getEventKeyState()) {
-					down=true;
-			    }
-			    else {
-			        down=false;
-			    }
-			    continue;
+					down = true;
+				} else {
+					down = false;
+				}
+				continue;
 			}
 			if (Keyboard.getEventKey() == Keyboard.KEY_LEFT) {
 				if (Keyboard.getEventKeyState()) {
-					left=true;
-			    }
-			    else {
-			        left=false;
-			    }
-			    continue;
+					left = true;
+				} else {
+					left = false;
+				}
+				continue;
 			}
 			if (Keyboard.getEventKey() == Keyboard.KEY_RIGHT) {
 				if (Keyboard.getEventKeyState()) {
-					right=true;
-			    }
-			    else {
-			        right=false;
-			    }
-			    continue;
+					right = true;
+				} else {
+					right = false;
+				}
+				continue;
 			}
 			if (Keyboard.getEventKey() == Keyboard.KEY_Q) {
 				if (Keyboard.getEventKeyState()) {
-					q=true;
-			    }
-			    else {
-			        q=false;
-			    }
-			    continue;
+					q = true;
+				} else {
+					q = false;
+				}
+				continue;
 			}
 			if (Keyboard.getEventKey() == Keyboard.KEY_E) {
 				if (Keyboard.getEventKeyState()) {
-					e=true;
-			    }
-			    else {
-			        e=false;
-			    }
-			    continue;
+					e = true;
+				} else {
+					e = false;
+				}
+				continue;
 			}
 			if (Keyboard.getEventKey() == Keyboard.KEY_W) {
 				if (Keyboard.getEventKeyState()) {
-					w=true;
-			    }
-			    else {
-			        w=false;
-			    }
-			    continue;
+					w = true;
+				} else {
+					w = false;
+				}
+				continue;
 			}
 			if (Keyboard.getEventKey() == Keyboard.KEY_S) {
 				if (Keyboard.getEventKeyState()) {
-					s=true;
-			    }
-			    else {
-			        s=false;
-			    }
-			    continue;
+					s = true;
+				} else {
+					s = false;
+				}
+				continue;
+			}
+			if (Keyboard.getEventKey() == Keyboard.KEY_R) {
+				if (Keyboard.getEventKeyState()) {
+					r = true;
+				} else {
+					r = false;
+				}
+				continue;
 			}
 		}
 	}
