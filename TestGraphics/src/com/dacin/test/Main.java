@@ -86,6 +86,7 @@ public class Main {
 		
 		// Clear the screen and depth buffer
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);	
+        GL11.glLoadIdentity();
 		
 		cube.render();
 		player.render();
