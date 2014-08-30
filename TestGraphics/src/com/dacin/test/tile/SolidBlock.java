@@ -1,17 +1,21 @@
 package com.dacin.test.tile;
 
 import com.dacin.test.Main;
+import com.dacin.test.shader.Texture;
 import com.dacin.test.sprite.Sprite;
 
 public class SolidBlock extends Block {
+	
+	
 
 	public SolidBlock(int setX, int setY) {
 		super(setX, setY);
+		Size=32;
 	}
 	
 
 	protected void collideTop(Sprite sprite) {
-		sprite.floor(y + 16 + 8);
+		sprite.floor(y + Size + 8);
 	}
 
 	protected void collideBot(Sprite sprite) {
@@ -23,7 +27,7 @@ public class SolidBlock extends Block {
 	}
 
 	protected void collideL(Sprite sprite) {
-		sprite.wall(x + 16 + 8);
+		sprite.wall(x + Size + 8);
 	}
 
 }

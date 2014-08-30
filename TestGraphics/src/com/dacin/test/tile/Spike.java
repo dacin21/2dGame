@@ -22,7 +22,7 @@ public class Spike extends Tile {
 	public Spike(int setX, int setY, int r) {
 		super(setX, setY);
 		rotation = r;
-		setTextureUnit0(ShaderUtils.TextureShaderId);
+		//setTextureUnit0(ShaderUtils.TextureShaderId);
 	}
 
 	public void tick() {
@@ -73,6 +73,8 @@ public class Spike extends Tile {
 		if(plny < y-24) return;
 		if(plny > (2*plnx + y + 32 - 2*x)) return;
 		if(plny > (-2*plnx + y + 32 + 2*x)) return;
+		//fix beside jump kill
+		if(plnx < x-20 || plnx > x+20) return;
 		
 		Main.player.kill();
 	}

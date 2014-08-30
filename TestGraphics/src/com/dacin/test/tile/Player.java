@@ -8,9 +8,13 @@ import com.dacin.test.sprite.Sprite;
 public class Player extends Sprite {
 	// Const
 	private static final int CORNERS = 15;
+	private static final float GRAVITY = 0.5f;
+	private static final float maxXVel = 3;
+	private static final float maxYVel = -8;
 	// private
 	private Input input;
 	private byte jump = 0;
+
 	// public
 
 	public Player(int setX, int setY, Input input) {
@@ -52,32 +56,42 @@ public class Player extends Sprite {
 
 	public void calcVel() {
 		if (input.left)
-			xVel = -2;
+			xVel--;
 		else {
 			if (input.right)
-				xVel = 2;
+				xVel++;
 			else xVel = 0;
 		}
-		
 		if (jump < 5) {
+			/*
+			 * Even/Odd: W= 0/1 0/2/4 jumps done
+			 */
 			if (input.w) {
-				if ((jump & 1) == 1) {
+				if (jump == 1) {
 					jump++;
-					yVel = 4.875f;
+					yVel = 8.0f;
+					return;
+				} else if (jump == 3) {
+					jump++;
+					yVel = 7.0f;
+					return;
 				}
-
 			} else {
 				if ((jump & 1) == 0) {
 					jump++;
 				}
+				if (yVel > 2) yVel = 2;
 			}
 
 		}
 
-		yVel -= 0.25;
+		yVel -= GRAVITY;
+
+		if (xVel < -maxXVel) xVel = -maxXVel;
+		if (xVel > maxXVel) xVel = maxXVel;
+		if (yVel < maxYVel) yVel = maxYVel;
 
 	}
-
 
 	public void floor(float y) {
 		this.y = y;

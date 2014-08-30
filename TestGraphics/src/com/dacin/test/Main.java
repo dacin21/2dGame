@@ -35,16 +35,17 @@ public class Main {
 		
 		
 		for(int i=0;i<8;i++){
-		ObjectLists.objList.addSpike(150+i*32*2, 172,2);
-		ObjectLists.objList.addSpike(150+i*32*2, 236,0);
+		ObjectLists.objList.addSpike(150+i*32*2, 172+32,0);
+		ObjectLists.objList.addSpike(150+i*32*2, 236+32,2);
+		ObjectLists.objList.addBlock(150-16+i*32*2, 172-16);
 		}
 		
-		for(int i=0;i<40;i++){
-			ObjectLists.objList.addBlock(50+i*16, 140);
+		for(int i=0;i<20;i++){
+			ObjectLists.objList.addBlock(50+i*32, 140-16);
 			
 		}
 		ObjectLists.objList.addBlock(150, 200);
-		ObjectLists.objList.addBlock(190, 216);
+		ObjectLists.objList.addBlock(182, 232);
 		// init OpenGL here
 		
 		
@@ -58,7 +59,7 @@ public class Main {
 		while (!Display.isCloseRequested()) {
 			
 			// render OpenGL here
-			Display.sync(40);
+			Display.sync(50);
 			tick();
 			render();
 		}
