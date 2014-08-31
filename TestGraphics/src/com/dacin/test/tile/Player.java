@@ -1,5 +1,7 @@
 package com.dacin.test.tile;
 
+import java.util.Random;
+
 import org.lwjgl.opengl.GL11;
 
 import com.dacin.test.Input;
@@ -11,6 +13,7 @@ public class Player extends Sprite {
 	private static final float GRAVITY = 0.5f;
 	private static final float maxXVel = 3;
 	private static final float maxYVel = -8;
+	private Random random = new Random();
 	// private
 	private Input input;
 	private byte jump = 0;
@@ -43,8 +46,7 @@ public class Player extends Sprite {
 
 		GL11.glVertex3f(x, y, 0);
 		for (int i = 0; i <= CORNERS; i++) {
-			GL11.glVertex2f(x + (float) (8 * Math.cos(pi2 * i)), y
-					+ (float) (8 * Math.sin(pi2 * i)));
+			GL11.glVertex2f(x + (float) (8 * Math.cos(pi2 * i)), y + (float) (8 * Math.sin(pi2 * i)));
 		}
 		// GL11.glVertex3f(x + 8, y , 0);
 		// GL11.glVertex3f(x, y + 8, 0);
@@ -55,12 +57,16 @@ public class Player extends Sprite {
 	}
 
 	public void calcVel() {
-		if (input.left)
-			xVel--;
-		else {
-			if (input.right)
-				xVel++;
-			else xVel = 0;
+		if (input.up) {
+			xVel *= random.nextFloat() * 5;
+			yVel += random.nextFloat() * 10;
+		}
+		if (input.left) {
+			if (--xVel < -maxXVel) xVel++;
+		} else {
+			if (input.right) {
+				if (++xVel > maxXVel) xVel--;
+			} else xVel = 0;
 		}
 		if (jump < 5) {
 			/*
@@ -86,9 +92,9 @@ public class Player extends Sprite {
 		}
 
 		yVel -= GRAVITY;
+		jump |= 2;
 
-		if (xVel < -maxXVel) xVel = -maxXVel;
-		if (xVel > maxXVel) xVel = maxXVel;
+
 		if (yVel < maxYVel) yVel = maxYVel;
 
 	}
@@ -109,9 +115,10 @@ public class Player extends Sprite {
 		this.x = x;
 		this.xVel = 0;
 	}
-	public void teleport(float x, float y){
-		this.x=x;
-		this.y=y;
+
+	public void teleport(float x, float y) {
+		this.x = x;
+		this.y = y;
 	}
 
 }

@@ -8,8 +8,10 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
+import com.dacin.Stage1.Stage1;
 import com.dacin.test.stage.Screen;
 import com.dacin.test.stage.Stage;
+import com.dacin.test.stage.screenFromFile;
 import com.dacin.test.tile.SolidBlock;
 
 public class Main {
@@ -19,57 +21,23 @@ public class Main {
     public static long lastFPS;
 	public static int fps;
 	public static Cube cube;
-	//public static Player player;
 	public static Stage stage;
 	public void start() {
 		try {
-			Display.setDisplayMode(new DisplayMode(800,600));
+			Display.setDisplayMode(new DisplayMode(800,608));
 			Display.create();
 			GL11.glMatrixMode(GL11.GL_PROJECTION);
 			GL11.glLoadIdentity();
-			GL11.glOrtho(0, 800, 0, 600, 200, -200);
+			GL11.glOrtho(0, 800, 0, 608, 200, -200);
 			GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 			System.exit(0);
 		}
 		lastFPS = getTime();
-		cube = new Cube(input);
-		//player = new Player(200,200,input);
-		stage = new Stage();
-		
-		
-		for(int a=0;a<4;a++){
-			Screen tempScreen = new Screen();
-			for(int b=0;b<30;b++){
-				tempScreen.addTile(new SolidBlock(random.nextInt(Display.getWidth()-16), random.nextInt(Display.getHeight()-16)));
-			}
-			stage.addScreen(tempScreen);
-		}
-		
-		/*
-		for(int i=0;i<8;i++){
-		ObjectLists.objList.addSpike(150+i*32*2, 172+32,0);
-		ObjectLists.objList.addSpike(150+i*32*2, 236+32,2);
-		ObjectLists.objList.addBlock(150-16+i*32*2, 172-16);
-		}
-		
-		for(int i=0;i<20;i++){
-			ObjectLists.objList.addBlock(50+i*32, 140-16);
-			
-		}
-		ObjectLists.objList.addBlock(150, 200);
-		ObjectLists.objList.addBlock(182, 232);
-		// init OpenGL here
-		*/
-		
-		
-		
-		
-		
-		
-		
-		
+		loadingScreen();
+		initLevels();
+
 		while (!Display.isCloseRequested()) {
 			
 			// render OpenGL here
@@ -86,33 +54,44 @@ public class Main {
 		displayExample.start();
 	}
 	
+	private void initLevels(){
+		cube = new Cube(input);
+		stage = new Stage1();
+		
+		
+		for(int a=0;a<9;a++){
+			//Screen tempScreen = new Screen();
+			//for(int b=0;b<15+15*random.nextInt(5);b++){
+			//	tempScreen.addTile(new SolidBlock(random.nextInt(Display.getWidth()-16), random.nextInt(Display.getHeight()-16)));
+			//}
+			stage.addScreen(screenFromFile.loadScreen("Levels/1/" + (a/3+1) + "_" + (a%3+1) +".png"));
+		}
+		// init OpenGL here
+		stage.setScreen(0);
+	}
 	
-	public static void tick(){
+	
+	private static void tick(){
 		updateFPS();
 		input.getKeys();
 		cube.tick();
-		//player.tick();
 		stage.tick();
-		ObjectLists.objList.tick();
-		//System.out.println("     " + ", Up " + input.up+ ", Down " + input.down+ ", Left " + input.left + ", right " + input.right );
 	
 	}
 	
-	public static void render(){
+	private static void render(){
 		
 		// Clear the screen and depth buffer
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);	
         GL11.glLoadIdentity();
 		
-		cube.render();
-		//player.render();
 		stage.render();
-		ObjectLists.objList.render();
+		cube.render();
 		Display.update();
 	}
 	
 	
-	public static void updateFPS() {
+	private static void updateFPS() {
 		if (getTime() - lastFPS > 1000) {
 	        Display.setTitle("FPS: " + fps); 
 	        fps = 0; //reset the FPS counter
@@ -123,6 +102,9 @@ public class Main {
 	}
 	public static long getTime() {
 	    return (Sys.getTime() * 1000) / Sys.getTimerResolution();
+	}
+	private void loadingScreen(){
+		
 	}
 
 }

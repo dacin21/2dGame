@@ -6,7 +6,7 @@ public abstract class Tile {
 		protected float x,y;
 		public Tile(int setX,int setY){
 			this.x=setX;
-			y=setY;
+			this.y=setY;
 		}
 		
 		public void tick(){

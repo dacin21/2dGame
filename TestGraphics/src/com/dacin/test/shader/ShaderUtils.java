@@ -72,8 +72,8 @@ public class ShaderUtils {
 
 	private static String loadAsString(String file) {
 		String result = "";
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(file));
+		try (BufferedReader reader = new BufferedReader(new FileReader(file))){
+			
 			String buffer = "";
 			while ((buffer = reader.readLine()) != null) {
 				result += buffer + "\n";
@@ -82,6 +82,8 @@ public class ShaderUtils {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		
 
 		return result;
 	}
