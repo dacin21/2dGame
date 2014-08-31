@@ -5,12 +5,11 @@ import static org.lwjgl.opengl.GL11.glBindTexture;
 
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 
-import com.dacin.test.Main;
 import com.dacin.test.shader.ShaderUtils;
 import com.dacin.test.shader.Texture;
+import com.dacin.test.stage.Stage;
 
 public class Spike extends Tile {
 
@@ -62,8 +61,8 @@ public class Spike extends Tile {
 	}
 
 	public void colidePlayer(){
-		float plx=Main.player.x;
-		float ply=Main.player.y;
+		float plx=Stage.player.x;
+		float ply=Stage.player.y;
 		//rotate to match up-state
 		float plnx=rotation==0 ? plx : rotation==1 ? x+(ply-y): rotation == 2 ? 2*x-plx : x-(ply-y);                   
 		float plny=rotation==0 ? ply : rotation==1 ? y-(plx-x): rotation == 2 ? 2*y-ply : y+(plx-x);  
@@ -76,7 +75,7 @@ public class Spike extends Tile {
 		//fix beside jump kill
 		if(plnx < x-20 || plnx > x+20) return;
 		
-		Main.player.kill();
+		Stage.player.kill();
 	}
 	
 	public void setTextureUnit0(int programId) {

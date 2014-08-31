@@ -1,7 +1,5 @@
 package com.dacin.test.tile;
 
-import com.dacin.test.Main;
-import com.dacin.test.shader.Texture;
 import com.dacin.test.sprite.Sprite;
 
 public class SolidBlock extends Block {

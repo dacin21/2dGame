@@ -109,5 +109,9 @@ public class Player extends Sprite {
 		this.x = x;
 		this.xVel = 0;
 	}
+	public void teleport(float x, float y){
+		this.x=x;
+		this.y=y;
+	}
 
 }

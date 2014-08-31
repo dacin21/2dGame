@@ -6,10 +6,10 @@ import static org.lwjgl.opengl.GL11.glBindTexture;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 
-import com.dacin.test.Main;
 import com.dacin.test.shader.ShaderUtils;
 import com.dacin.test.shader.Texture;
 import com.dacin.test.sprite.Sprite;
+import com.dacin.test.stage.Stage;
 
 public class Block extends Tile {
 	
@@ -20,7 +20,7 @@ public class Block extends Tile {
 	}
 
 	public void tick() {
-		colideSprite(Main.player);
+		colideSprite(Stage.player);
 
 	}
 
