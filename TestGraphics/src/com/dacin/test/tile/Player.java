@@ -5,6 +5,8 @@ import java.util.Random;
 import org.lwjgl.opengl.GL11;
 
 import com.dacin.test.Input;
+import com.dacin.test.Main;
+import com.dacin.test.sprite.PlayerShot;
 import com.dacin.test.sprite.Sprite;
 
 public class Player extends Sprite {
@@ -17,6 +19,9 @@ public class Player extends Sprite {
 	// private
 	private Input input;
 	private byte jump = 0;
+	private boolean faceingRight = true;
+	private int shotCD = 0;
+	private boolean oldShot = false;
 
 	// public
 
@@ -43,7 +48,7 @@ public class Player extends Sprite {
 		}
 
 		final double pi2 = Math.PI * 2 / CORNERS;
-
+		
 		GL11.glVertex3f(x, y, 0);
 		for (int i = 0; i <= CORNERS; i++) {
 			GL11.glVertex2f(x + (float) (8 * Math.cos(pi2 * i)), y + (float) (8 * Math.sin(pi2 * i)));
@@ -57,18 +62,28 @@ public class Player extends Sprite {
 	}
 
 	public void calcVel() {
+		if(input.x && shotCD == 0 && PlayerShot.shotCount < 5 && !oldShot){
+			shotCD=2;
+			Main.stage.addGlobalSprite(new PlayerShot((int)this.x, (int)this.y, faceingRight ? 4 : -4));
+		} else shotCD = shotCD == 0 ? 0 : shotCD-1;
+		oldShot = input.x;
+		
+		
+		
+		
 		if (input.up) {
 			xVel *= random.nextFloat() * 5;
 			yVel += random.nextFloat() * 10;
 		}
 		if (input.left) {
+			faceingRight=false;
 			if (--xVel < -maxXVel) xVel++;
 		} else {
 			if (input.right) {
+				faceingRight=true;
 				if (++xVel > maxXVel) xVel--;
 			} else xVel = 0;
 		}
-		if (jump < 5) {
 			/*
 			 * Even/Odd: W= 0/1 0/2/4 jumps done
 			 */
@@ -88,8 +103,6 @@ public class Player extends Sprite {
 				}
 				if (yVel > 2) yVel = 2;
 			}
-
-		}
 
 		yVel -= GRAVITY;
 		jump |= 2;

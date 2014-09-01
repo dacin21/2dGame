@@ -27,6 +27,10 @@ public abstract class Tile {
 			GL11.glPopMatrix();
 			
 		}
+		public void move(float relX, float relY){
+			x+=relX;
+			y+=relY;
+		}
 
 }
 

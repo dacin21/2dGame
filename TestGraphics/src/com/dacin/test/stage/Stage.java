@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.lwjgl.opengl.Display;
 
 import com.dacin.test.Main;
+import com.dacin.test.ObjectLists;
+import com.dacin.test.sprite.Sprite;
 import com.dacin.test.tile.Player;
 
 public abstract class Stage {
@@ -12,6 +14,7 @@ public abstract class Stage {
 	public static Player player = new Player(100, 100, Main.input);
 	// protected
 	protected ArrayList<Screen> screens = new ArrayList<Screen>();
+	protected ArrayList<Sprite> globalSprites = new ArrayList<Sprite>();
 	protected Screen activScreen = null;
 	protected byte width, height;
 	protected byte screenNum = 0;
@@ -29,6 +32,7 @@ public abstract class Stage {
 					player.ceil(Display.getHeight());
 					return false;
 				}
+				ObjectLists.objList.moveSpritesOnScreen(globalSprites, 0, 1);
 				screenNum -= width;
 				break;
 			case 1:
@@ -36,20 +40,21 @@ public abstract class Stage {
 					player.wall(Display.getWidth());
 					return false;
 				}
+				ObjectLists.objList.moveSpritesOnScreen(globalSprites, 1, 0);
 				screenNum++;
 				break;
 			case 2:
 				if (screenNum >= width * (height - 1)) {
 					player.floor(0);
 					return false;
-				}
+				}ObjectLists.objList.moveSpritesOnScreen(globalSprites, 0, -1);
 				screenNum += width;
 				break;
 			case 3:
 				if (screenNum % width == 0) {
 					player.wall(0);
 					return false;
-				}
+				}ObjectLists.objList.moveSpritesOnScreen(globalSprites, -1, 0);
 				screenNum--;
 				break;
 			default:
@@ -64,6 +69,9 @@ public abstract class Stage {
 	}
 
 	public void tick() {
+		System.out.println(globalSprites.size());
+		ObjectLists.objList.tickList(globalSprites);
+		ObjectLists.objList.cleanList(globalSprites);
 		activScreen.tick();
 		player.tick();
 		// up
@@ -78,6 +86,7 @@ public abstract class Stage {
 
 	public void render() {
 		activScreen.Render();
+		ObjectLists.objList.renderList(globalSprites);
 		player.render();
 
 	}
@@ -88,6 +97,9 @@ public abstract class Stage {
 
 	public void setScreen(int index) {
 		activScreen = screens.get(index);
+	}
+	public void addGlobalSprite(Sprite sprite){
+		globalSprites.add(sprite);
 	}
 
 }

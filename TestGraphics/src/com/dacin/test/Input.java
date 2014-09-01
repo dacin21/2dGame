@@ -15,6 +15,7 @@ public class Input {
 	public boolean q = false;
 	public boolean e = false;
 	public boolean r = false;
+	public boolean x = false;
 
 	public Input() {
 
@@ -93,6 +94,14 @@ public class Input {
 					r = true;
 				} else {
 					r = false;
+				}
+				continue;
+			}
+			if (Keyboard.getEventKey() == Keyboard.KEY_X) {
+				if (Keyboard.getEventKeyState()) {
+					x = true;
+				} else {
+					x = false;
 				}
 				continue;
 			}
