@@ -2,7 +2,6 @@ package com.dacin.test.stage;
 
 import java.util.ArrayList;
 
-import com.dacin.test.ObjectLists;
 import com.dacin.test.sprite.Sprite;
 import com.dacin.test.tile.BackGround;
 import com.dacin.test.tile.Tile;
@@ -29,16 +28,16 @@ public class Screen {
 
 	public void tick() {
 
-		ObjectLists.objList.tickList(sprites);
-		ObjectLists.objList.tickList(tiles);
-		ObjectLists.objList.cleanList(sprites);
+		for(Sprite e:sprites) e.tick();
+		for(Tile e:tiles) e.tick();
+		for(Sprite e:sprites) if(e.getUseless()) sprites.remove(e);
 
 	}
 
 	public void Render() {
 		background.render();
-		ObjectLists.objList.renderList(tiles);
-		ObjectLists.objList.renderList(sprites);
+		for(Sprite e:sprites) e.render();
+		for(Tile e:tiles) e.render();
 	}
 
 

@@ -1,4 +1,4 @@
-package com.dacin.Stage1;
+package com.dacin.test.Stage1;
 
 import com.dacin.test.stage.Stage;
 

@@ -1,11 +1,11 @@
 package com.dacin.test.stage;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.lwjgl.opengl.Display;
 
 import com.dacin.test.Main;
-import com.dacin.test.ObjectLists;
 import com.dacin.test.sprite.Sprite;
 import com.dacin.test.tile.Player;
 
@@ -32,7 +32,7 @@ public abstract class Stage {
 					player.ceil(Display.getHeight());
 					return false;
 				}
-				ObjectLists.objList.moveSpritesOnScreen(globalSprites, 0, 1);
+				for(Sprite e:globalSprites) e.move(0, Display.getHeight());
 				screenNum -= width;
 				break;
 			case 1:
@@ -40,21 +40,23 @@ public abstract class Stage {
 					player.wall(Display.getWidth());
 					return false;
 				}
-				ObjectLists.objList.moveSpritesOnScreen(globalSprites, 1, 0);
+				for(Sprite e:globalSprites) e.move(Display.getWidth(), 0);
 				screenNum++;
 				break;
 			case 2:
 				if (screenNum >= width * (height - 1)) {
 					player.floor(0);
 					return false;
-				}ObjectLists.objList.moveSpritesOnScreen(globalSprites, 0, -1);
+				}
+				for(Sprite e:globalSprites) e.move(0, -Display.getHeight());
 				screenNum += width;
 				break;
 			case 3:
 				if (screenNum % width == 0) {
 					player.wall(0);
 					return false;
-				}ObjectLists.objList.moveSpritesOnScreen(globalSprites, -1, 0);
+				}
+				for(Sprite e:globalSprites) e.move(-Display.getWidth(), 0);
 				screenNum--;
 				break;
 			default:
@@ -70,8 +72,8 @@ public abstract class Stage {
 
 	public void tick() {
 		System.out.println(globalSprites.size());
-		ObjectLists.objList.tickList(globalSprites);
-		ObjectLists.objList.cleanList(globalSprites);
+		for(Sprite e:globalSprites) e.tick();
+		for(Iterator<Sprite> i = globalSprites.iterator(); i.hasNext();) if(i.next().getUseless()) i.remove();
 		activScreen.tick();
 		player.tick();
 		// up
@@ -86,7 +88,7 @@ public abstract class Stage {
 
 	public void render() {
 		activScreen.Render();
-		ObjectLists.objList.renderList(globalSprites);
+		for(Sprite e:globalSprites) e.render();
 		player.render();
 
 	}
@@ -101,5 +103,7 @@ public abstract class Stage {
 	public void addGlobalSprite(Sprite sprite){
 		globalSprites.add(sprite);
 	}
+	
+
 
 }

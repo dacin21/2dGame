@@ -8,7 +8,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
-import com.dacin.Stage1.Stage1;
+import com.dacin.test.Stage1.Stage1;
 import com.dacin.test.stage.Screen;
 import com.dacin.test.stage.Stage;
 import com.dacin.test.stage.screenFromFile;
