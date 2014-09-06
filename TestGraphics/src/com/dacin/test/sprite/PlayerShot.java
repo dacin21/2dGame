@@ -21,11 +21,9 @@ public class PlayerShot extends Sprite {
 		GL11.glColor3f(0.8f, 0.8f, 0.8f);
 		
 		GL11.glVertex3f(x-5, y, 0);
-		GL11.glVertex3f(x+5, y, 0);
+		GL11.glVertex3f(x-5, y+5, 0);
 		GL11.glVertex3f(x, y+5, 0);
-		// GL11.glVertex3f(x + 8, y , 0);
-		// GL11.glVertex3f(x, y + 8, 0);
-		// GL11.glVertex3f(x - 8, y , 0);
+		GL11.glVertex3f(x, y, 0);
 		GL11.glEnd();
 
 		GL11.glPopMatrix();
@@ -41,6 +39,10 @@ public class PlayerShot extends Sprite {
 			this.dead=true;
 			shotCount--;
 		}
+	}
+	
+	public void wall(float x){
+		this.kill();
 	}
 
 }

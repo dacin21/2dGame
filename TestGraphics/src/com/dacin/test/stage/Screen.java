@@ -2,6 +2,7 @@ package com.dacin.test.stage;
 
 import java.util.ArrayList;
 
+import com.dacin.test.sprite.PlayerShot;
 import com.dacin.test.sprite.Sprite;
 import com.dacin.test.tile.BackGround;
 import com.dacin.test.tile.Tile;
@@ -12,7 +13,8 @@ public class Screen {
 	// protected
 	protected ArrayList<Tile> tiles = new ArrayList<Tile>();
 	protected ArrayList<Sprite> sprites = new ArrayList<Sprite>();
-	protected BackGround background = new BackGround("Textures/Background/GenericBackGround.jpg");
+	protected ArrayList<Sprite> origSprites = new ArrayList<Sprite>();
+	protected BackGround background = new BackGround("res/Textures/Background/GenericBackGround.jpg");
 
 	public Screen() {
 
@@ -24,6 +26,9 @@ public class Screen {
 
 	public void addSprite(Sprite sprite) {
 		sprites.add(sprite);
+	}
+	public void addOrigSprite(Sprite sprite){
+		origSprites.add(sprite);
 	}
 
 	public void tick() {
@@ -38,6 +43,11 @@ public class Screen {
 		background.render();
 		for(Sprite e:sprites) e.render();
 		for(Tile e:tiles) e.render();
+	}
+	
+	public void Init(){
+		sprites = origSprites;
+		PlayerShot.shotCount=0;
 	}
 
 

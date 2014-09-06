@@ -9,20 +9,20 @@ import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
 import com.dacin.test.Stage1.Stage1;
-import com.dacin.test.stage.Screen;
 import com.dacin.test.stage.Stage;
 import com.dacin.test.stage.screenFromFile;
-import com.dacin.test.tile.SolidBlock;
 
 public class Main {
 	private Random random = new Random();
-	public static Input input = new Input();
+	public static boolean pause=false;
+	public static Controls input = new Controls();
 	public static int x,y;
     public static long lastFPS;
 	public static int fps;
-	public static Cube cube;
+	//public static Cube cube;
 	public static Stage stage;
 	public void start() {
+		System.out.println("New Thread Started");
 		try {
 			Display.setDisplayMode(new DisplayMode(800,608));
 			Display.create();
@@ -51,11 +51,12 @@ public class Main {
 	
 	public static void main(String[] argv) {
 		Main displayExample = new Main();
+		System.out.print("Run :   ");
 		displayExample.start();
 	}
 	
 	private void initLevels(){
-		cube = new Cube(input);
+		//cube = new Cube(input);
 		stage = new Stage1();
 		
 		
@@ -64,7 +65,7 @@ public class Main {
 			//for(int b=0;b<15+15*random.nextInt(5);b++){
 			//	tempScreen.addTile(new SolidBlock(random.nextInt(Display.getWidth()-16), random.nextInt(Display.getHeight()-16)));
 			//}
-			stage.addScreen(screenFromFile.loadScreen("Levels/1/" + (a/3+1) + "_" + (a%3+1) +".png"));
+			stage.addScreen(screenFromFile.loadScreen("res/Levels/1/" + (a/3+1) + "_" + (a%3+1) +".png"));
 		}
 		// init OpenGL here
 		stage.setScreen(0);
@@ -73,9 +74,11 @@ public class Main {
 	
 	private static void tick(){
 		updateFPS();
-		input.getKeys();
-		cube.tick();
+		input.checkKeys();
+		if(pause) return;
+		//cube.tick();
 		stage.tick();
+		if(input.reset) stage.restart();
 	
 	}
 	
@@ -86,7 +89,7 @@ public class Main {
         GL11.glLoadIdentity();
 		
 		stage.render();
-		cube.render();
+		//cube.render();
 		Display.update();
 	}
 	

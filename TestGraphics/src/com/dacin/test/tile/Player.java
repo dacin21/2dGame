@@ -4,7 +4,7 @@ import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 
-import com.dacin.test.Input;
+import com.dacin.test.Controls;
 import com.dacin.test.Main;
 import com.dacin.test.sprite.PlayerShot;
 import com.dacin.test.sprite.Sprite;
@@ -17,7 +17,7 @@ public class Player extends Sprite {
 	private static final float maxYVel = -8;
 	private Random random = new Random();
 	// private
-	private Input input;
+	private Controls input;
 	private byte jump = 0;
 	private boolean faceingRight = true;
 	private int shotCD = 0;
@@ -25,15 +25,15 @@ public class Player extends Sprite {
 
 	// public
 
-	public Player(int setX, int setY, Input input) {
+	public Player(int setX, int setY, Controls input2) {
 		super(setX, setY);
-		this.input = input;
+		this.input = input2;
 		xVel = yVel = 0;
 	}
 
 	public void tick() {
 		super.tick();
-		if (input.r) dead = false;
+		if (input.reset) dead = false;
 		calcVel();
 	}
 
@@ -62,19 +62,15 @@ public class Player extends Sprite {
 	}
 
 	public void calcVel() {
-		if(input.x && shotCD == 0 && PlayerShot.shotCount < 5 && !oldShot){
+		if(input.shoot && shotCD == 0 && PlayerShot.shotCount < 5 && !oldShot){
 			shotCD=2;
-			Main.stage.addGlobalSprite(new PlayerShot((int)this.x, (int)this.y, faceingRight ? 4 : -4));
+			Main.stage.addFriendlySprite(new PlayerShot((int)this.x, (int)this.y, faceingRight ? 7 : -7));
 		} else shotCD = shotCD == 0 ? 0 : shotCD-1;
-		oldShot = input.x;
+		oldShot = input.shoot;
 		
 		
 		
 		
-		if (input.up) {
-			xVel *= random.nextFloat() * 5;
-			yVel += random.nextFloat() * 10;
-		}
 		if (input.left) {
 			faceingRight=false;
 			if (--xVel < -maxXVel) xVel++;
@@ -87,7 +83,7 @@ public class Player extends Sprite {
 			/*
 			 * Even/Odd: W= 0/1 0/2/4 jumps done
 			 */
-			if (input.w) {
+			if (input.jump) {
 				if (jump == 1) {
 					jump++;
 					yVel = 8.0f;

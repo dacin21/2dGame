@@ -16,7 +16,7 @@ public class Spike extends Tile {
 
 	private int rotation; // 0^ 1> 2v 3<
 
-	private static Texture texture = new Texture("Textures/Tile/Spike.png");
+	private static Texture texture = new Texture("res/Textures/Tile/Spike.png");
 
 	public Spike(int setX, int setY, int r) {
 		super(setX, setY);

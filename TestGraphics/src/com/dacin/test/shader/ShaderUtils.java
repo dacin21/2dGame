@@ -24,7 +24,7 @@ public class ShaderUtils {
 
 	private ShaderUtils() {
 	}
-	public static int TextureShaderId = ShaderUtils.load("Shaders/Texture.vert", "Shaders/Texture.frag");
+	public static int TextureShaderId = ShaderUtils.load("res/Shaders/Texture.vert", "res/Shaders/Texture.frag");
 
 	public static int load(String vertPath, String fragPath) {
 		String vert = loadAsString(vertPath);
@@ -59,7 +59,7 @@ public class ShaderUtils {
 		GL20.glBindAttribLocation(program, 0, "in_Position");
 		// Color information will be attribute 1
 		GL20.glBindAttribLocation(program, 1, "in_Color");
-		// Textute information will be attribute 2
+		// Texture information will be attribute 2
 		GL20.glBindAttribLocation(program, 2, "in_TextureCoord");
 		
 		

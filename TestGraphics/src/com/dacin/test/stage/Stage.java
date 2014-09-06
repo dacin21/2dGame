@@ -6,6 +6,7 @@ import java.util.Iterator;
 import org.lwjgl.opengl.Display;
 
 import com.dacin.test.Main;
+import com.dacin.test.sprite.PlayerShot;
 import com.dacin.test.sprite.Sprite;
 import com.dacin.test.tile.Player;
 
@@ -15,7 +16,9 @@ public abstract class Stage {
 	// protected
 	protected ArrayList<Screen> screens = new ArrayList<Screen>();
 	protected ArrayList<Sprite> globalSprites = new ArrayList<Sprite>();
+	public ArrayList<Sprite> friendlySprites = new ArrayList<Sprite>();
 	protected Screen activScreen = null;
+	protected SavePoint save = new SavePoint(player, (byte) 0);
 	protected byte width, height;
 	protected byte screenNum = 0;
 
@@ -33,6 +36,7 @@ public abstract class Stage {
 					return false;
 				}
 				for(Sprite e:globalSprites) e.move(0, Display.getHeight());
+				for(Sprite e:friendlySprites) e.move(0, Display.getHeight());
 				screenNum -= width;
 				break;
 			case 1:
@@ -41,6 +45,7 @@ public abstract class Stage {
 					return false;
 				}
 				for(Sprite e:globalSprites) e.move(Display.getWidth(), 0);
+				for(Sprite e:friendlySprites) e.move(Display.getWidth(), 0);
 				screenNum++;
 				break;
 			case 2:
@@ -49,6 +54,7 @@ public abstract class Stage {
 					return false;
 				}
 				for(Sprite e:globalSprites) e.move(0, -Display.getHeight());
+				for(Sprite e:friendlySprites) e.move(0, -Display.getHeight());
 				screenNum += width;
 				break;
 			case 3:
@@ -57,6 +63,7 @@ public abstract class Stage {
 					return false;
 				}
 				for(Sprite e:globalSprites) e.move(-Display.getWidth(), 0);
+				for(Sprite e:friendlySprites) e.move(-Display.getWidth(), 0);
 				screenNum--;
 				break;
 			default:
@@ -66,14 +73,16 @@ public abstract class Stage {
 		}
 		player.teleport(newX, newY);
 		activScreen = screens.get(screenNum);
+		activScreen.Init();
 		return true;
 
 	}
 
 	public void tick() {
-		System.out.println(globalSprites.size());
 		for(Sprite e:globalSprites) e.tick();
+		for(Sprite e:friendlySprites) e.tick();
 		for(Iterator<Sprite> i = globalSprites.iterator(); i.hasNext();) if(i.next().getUseless()) i.remove();
+		for(Iterator<Sprite> i = friendlySprites.iterator(); i.hasNext();) if(i.next().getUseless()) i.remove();
 		activScreen.tick();
 		player.tick();
 		// up
@@ -89,6 +98,7 @@ public abstract class Stage {
 	public void render() {
 		activScreen.Render();
 		for(Sprite e:globalSprites) e.render();
+		for(Sprite e:friendlySprites) e.render();
 		player.render();
 
 	}
@@ -96,12 +106,32 @@ public abstract class Stage {
 	public void addScreen(Screen screen) {
 		screens.add(screen);
 	}
+	
+	public void setScreen(int index){setScreen((byte) index );}
 
-	public void setScreen(int index) {
+	public void setScreen(byte index) {
 		activScreen = screens.get(index);
+		save = new SavePoint(player, index);
 	}
 	public void addGlobalSprite(Sprite sprite){
 		globalSprites.add(sprite);
+	}
+	public void addFriendlySprite(Sprite sprite){
+		friendlySprites.add(sprite);
+	}
+	
+	public void restart(){
+		globalSprites = new ArrayList<Sprite>();
+		friendlySprites = new ArrayList<Sprite>();
+		save.resetPlayer(player);
+		screenNum = save.screenNum;
+
+		activScreen = screens.get(screenNum);
+		activScreen.Init();
+	}
+	
+	public void save(){
+		save = new SavePoint(player, screenNum);
 	}
 	
 
