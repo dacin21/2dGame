@@ -8,6 +8,8 @@ import javax.imageio.ImageIO;
 
 import org.lwjgl.opengl.Display;
 
+import com.dacin.test.tile.BackGround;
+import com.dacin.test.tile.ConveyorBelt;
 import com.dacin.test.tile.SaveBlock;
 import com.dacin.test.tile.SolidBlock;
 import com.dacin.test.tile.Spike;
@@ -22,7 +24,13 @@ public abstract class screenFromFile {
 	public static Screen loadScreen(String filePath) {
 		Screen screen = new Screen();
 		convertPixels(loadImage(filePath), screen);
-		//TODO: Remove
+		screen.addTile(new SaveBlock(200, 100));
+		return screen;
+
+	}
+	public static Screen loadScreen(String filePath, BackGround bg) {
+		Screen screen = new Screen(bg);
+		convertPixels(loadImage(filePath), screen);
 		screen.addTile(new SaveBlock(200, 100));
 		return screen;
 
@@ -74,6 +82,8 @@ public abstract class screenFromFile {
 			case 0xFFFFFFFC:
 				screen.addTile(new Spike(x - 16, y - 16, 3));
 				return;
+			case 0xFF009900:
+				screen.addTile(new ConveyorBelt(x-32, y-32, 16, 16));
 
 		}
 	}

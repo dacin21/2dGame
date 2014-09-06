@@ -9,6 +9,7 @@ import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
 import com.dacin.test.Stage1.Stage1;
+import com.dacin.test.intro.IntroStage;
 import com.dacin.test.stage.Stage;
 import com.dacin.test.stage.screenFromFile;
 
@@ -30,6 +31,9 @@ public class Main {
 			GL11.glLoadIdentity();
 			GL11.glOrtho(0, 800, 0, 608, 200, -200);
 			GL11.glMatrixMode(GL11.GL_MODELVIEW);
+			//Transparency
+			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 			System.exit(0);
@@ -61,13 +65,9 @@ public class Main {
 		
 		
 		for(int a=0;a<9;a++){
-			//Screen tempScreen = new Screen();
-			//for(int b=0;b<15+15*random.nextInt(5);b++){
-			//	tempScreen.addTile(new SolidBlock(random.nextInt(Display.getWidth()-16), random.nextInt(Display.getHeight()-16)));
-			//}
 			stage.addScreen(screenFromFile.loadScreen("res/Levels/1/" + (a/3+1) + "_" + (a%3+1) +".png"));
 		}
-		// init OpenGL here
+		stage = IntroStage.getStage();
 		stage.setScreen(0);
 	}
 	

@@ -6,9 +6,8 @@ import java.util.Iterator;
 import org.lwjgl.opengl.Display;
 
 import com.dacin.test.Main;
-import com.dacin.test.sprite.PlayerShot;
 import com.dacin.test.sprite.Sprite;
-import com.dacin.test.tile.Player;
+import com.dacin.test.sprite.player.Player;
 
 public abstract class Stage {
 	// public
@@ -27,7 +26,7 @@ public abstract class Stage {
 
 	}
 
-	protected boolean transistScreen(int newX, int newY, int dir) {
+	protected boolean transistScreen(float newX, float newY, int dir) {
 		// up right left down
 		switch (dir) {
 			case 0:
@@ -71,9 +70,10 @@ public abstract class Stage {
 				throw new IllegalArgumentException();
 
 		}
-		player.teleport(newX, newY);
+		player.teleport(newX, newY-player.yVel);
 		activScreen = screens.get(screenNum);
 		activScreen.Init();
+		activScreen.tick();
 		return true;
 
 	}
@@ -86,13 +86,13 @@ public abstract class Stage {
 		activScreen.tick();
 		player.tick();
 		// up
-		if (player.getNewY() > Display.getHeight()) transistScreen((int) (player.getNewX()), (int) (player.getNewY() - Display.getHeight()), 0);
+		if (player.getNewY() > Display.getHeight()) transistScreen( (player.getNewX()),  (player.getNewY() - Display.getHeight()), 0);
 		// right
-		if (player.getNewX() > Display.getWidth()) transistScreen((int) (player.getNewX() - Display.getWidth()), (int) (player.getNewY()), 1);
+		if (player.getNewX() > Display.getWidth()) transistScreen( (player.getNewX() - Display.getWidth()),  (player.getNewY()), 1);
 		// down
-		if (player.getNewY() < 0) transistScreen((int) (player.getNewX()), (int) (player.getNewY() + Display.getHeight()), 2);
+		if (player.getNewY() < 0) transistScreen( (player.getNewX()), (player.getNewY() + Display.getHeight()), 2);
 		// left
-		if (player.getNewX() < 0) transistScreen((int) (player.getNewX() + Display.getWidth()), (int) (player.getNewY()), 3);
+		if (player.getNewX() < 0) transistScreen( (player.getNewX() + Display.getWidth()), (player.getNewY()), 3);
 	}
 
 	public void render() {
@@ -131,6 +131,7 @@ public abstract class Stage {
 	}
 	
 	public void save(){
+		if(player.getUseless()) return;
 		save = new SavePoint(player, screenNum);
 	}
 	

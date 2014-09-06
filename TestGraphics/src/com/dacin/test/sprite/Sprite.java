@@ -10,10 +10,12 @@ public abstract class Sprite extends Tile {
 	protected boolean dead = false;
 	//public
 	public float xVel, yVel;
+	public int xr,yr;
 	
 
 	public Sprite(int setX, int setY) {
 		super(setX, setY);
+		xr=yr=8;
 	}
 	
 	public void tick(){

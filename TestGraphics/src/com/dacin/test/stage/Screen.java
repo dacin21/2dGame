@@ -2,7 +2,7 @@ package com.dacin.test.stage;
 
 import java.util.ArrayList;
 
-import com.dacin.test.sprite.PlayerShot;
+import com.dacin.test.sprite.player.PlayerShot;
 import com.dacin.test.sprite.Sprite;
 import com.dacin.test.tile.BackGround;
 import com.dacin.test.tile.Tile;
@@ -14,10 +14,13 @@ public class Screen {
 	protected ArrayList<Tile> tiles = new ArrayList<Tile>();
 	protected ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 	protected ArrayList<Sprite> origSprites = new ArrayList<Sprite>();
-	protected BackGround background = new BackGround("res/Textures/Background/GenericBackGround.jpg");
+	protected BackGround background;
 
 	public Screen() {
-
+		this.background= new BackGround("res/Textures/Background/GenericBackGround.jpg");
+	}
+	public Screen(BackGround bg){
+		this.background=bg;
 	}
 
 	public void addTile(Tile tile) {

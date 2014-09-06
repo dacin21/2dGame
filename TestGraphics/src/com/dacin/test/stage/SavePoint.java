@@ -1,6 +1,6 @@
 package com.dacin.test.stage;
 
-import com.dacin.test.tile.Player;
+import com.dacin.test.sprite.player.Player;
 
 public class SavePoint {
 	float px,py;
@@ -13,9 +13,9 @@ public class SavePoint {
 	}
 	
 	public void resetPlayer(Player player){
-		player.xVel=0;
-		player.yVel=0;
-		player.teleport(px, py);
+		player.wall(px);;
+		player.floor(py);
+		player.air();
 	}
 
 }

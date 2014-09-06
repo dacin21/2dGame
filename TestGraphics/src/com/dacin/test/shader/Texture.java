@@ -5,6 +5,7 @@ package com.dacin.test.shader;
 import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -25,7 +26,7 @@ public class Texture {
 	private int load(String path){
 		int[] pixels = null;
 		try {
-			BufferedImage image = ImageIO.read(new FileInputStream(path));
+			BufferedImage image = ImageIO.read(new BufferedInputStream(new FileInputStream(path)));
 			width = image.getWidth();
 			height = image.getHeight();
 			pixels = new int[width * height];

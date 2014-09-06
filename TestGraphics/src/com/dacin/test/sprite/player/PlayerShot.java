@@ -1,7 +1,9 @@
-package com.dacin.test.sprite;
+package com.dacin.test.sprite.player;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
+
+import com.dacin.test.sprite.Sprite;
 
 public class PlayerShot extends Sprite {
 	public static byte shotCount = 0;
@@ -10,6 +12,7 @@ public class PlayerShot extends Sprite {
 		super(setX, setY);
 		shotCount++;
 		this.xVel=xVel;
+		xr=yr=2;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -36,7 +39,7 @@ public class PlayerShot extends Sprite {
 	public void tick(){
 		x+=xVel;
 		if(x<0||x>(Display.getWidth())){
-			this.dead=true;
+			this.kill();
 			shotCount--;
 		}
 	}

@@ -13,19 +13,19 @@ public class SolidBlock extends Block {
 	
 
 	protected void collideTop(Sprite sprite) {
-		sprite.floor(y + Size + 8);
+		sprite.floor(y + Size + sprite.yr);
 	}
 
 	protected void collideBot(Sprite sprite) {
-		sprite.ceil(y - 8);
+		sprite.ceil(y - sprite.yr);
 	}
 
 	protected void collideR(Sprite sprite) {
-		sprite.wall(x - 8);
+		sprite.wall(x - sprite.xr);
 	}
 
 	protected void collideL(Sprite sprite) {
-		sprite.wall(x + Size + 8);
+		sprite.wall(x + Size + sprite.xr);
 	}
 
 }

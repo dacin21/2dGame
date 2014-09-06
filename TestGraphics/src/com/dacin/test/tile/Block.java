@@ -14,24 +14,28 @@ import com.dacin.test.stage.Stage;
 
 public class Block extends Tile {
 	
-	protected static Texture texture = new Texture("res/Textures/Tile/Block.jpg");
+	protected static final Texture texture = new Texture("res/Textures/Tile/Block.jpg");
 	protected int Size=16;
 	public Block(int setX, int setY) {
 		super(setX, setY);
 	}
 
 	public void tick() {
-		colideSprite(Stage.player, 8);
-		for(Sprite e:Main.stage.friendlySprites) colideSprite(e,4);
+		colideSprite(Stage.player);
+		for(Sprite e:Main.stage.friendlySprites) colideSprite(e);
 
 	}
 
 	public void render() {
+		renderWithTexture(texture);
+
+	}
+	protected void renderWithTexture(Texture tex){
 		GL11.glPushMatrix();
 		GL11.glLoadIdentity();
 		
 		ARBShaderObjects.glUseProgramObjectARB(ShaderUtils.TextureShaderId);
-		glBindTexture(GL_TEXTURE_2D,texture.getID());
+		glBindTexture(GL_TEXTURE_2D,tex.getID());
 
 		GL11.glBegin(GL11.GL_QUADS);
 		GL11.glColor3f(1.0f, 0.0f, 1.0f);
@@ -51,20 +55,25 @@ public class Block extends Tile {
 		GL11.glPopMatrix();
 
 	}
+	
+	
 	/**Use to test for colision of a Square with a Square of same orientation
 	 * 
 	 * @param QuadraticSprite
 	 */
 
-	public void colideSprite(Sprite sprite, int radius) {
+	public void colideSprite(Sprite sprite) {
 		float px = sprite.x;
 		float py = sprite.y;
 		float pnx = sprite.getNewX();
 		float pny = sprite.getNewY();
-		//TODO: Fix wall bug
+		int xr = sprite.xr;
+		int yr = sprite.yr;
+		//TODO: Fix RectangelBlock same way
 		// floor
-		if (py >= y + Size + radius && pny < y + Size + radius) {
-			if (((pnx > x - radius)||(px > x - radius)) && ((px < x + Size + radius)||(pnx < x + Size + radius))) {
+		if (py >= y + Size + yr && pny < y + Size + yr) {
+			//if (((pnx > x - radius)||(px > x - radius)) && ((px < x + Size + radius)||(pnx < x + Size + radius))) {
+			if (((pnx > x - xr)) && ((pnx < x + Size + xr))) {
 				if (sprite.yVel < 0) {
 					collideTop(sprite);
 				}
@@ -72,8 +81,9 @@ public class Block extends Tile {
 			}
 		}
 		// ceil
-		if (py <= y - radius && pny > y - radius) {
-			if (((pnx > x - radius)||(px > x - radius)) && ((px < x + Size + radius)||(pnx < x + Size + radius))) {
+		if (py <= y - yr && pny > y - yr) {
+			//if (((pnx > x - radius)||(px > x - radius)) && ((px < x + Size + radius)||(pnx < x + Size + radius))) {
+			if (((px > x - xr)) && ((px < x + Size + xr))) {
 				if (sprite.yVel > 0) {
 					collideBot(sprite);
 				}
@@ -81,15 +91,15 @@ public class Block extends Tile {
 		}
 		// wall
 		pny = sprite.getNewY();
-		if (py < y + Size + radius && py > y - radius) {
+		if (pny < y + Size + yr && pny > y - yr) {
 			// right
-			if (px <= x - radius && pnx > x - radius) {
+			if (px <= x - xr && pnx > x - xr) {
 				if (sprite.xVel > 0) {
 					collideR(sprite);
 				}
 			}
 			// left
-			if (px >= x + Size + radius && pnx < x + Size + radius) {
+			if (px >= x + Size + xr && pnx < x + Size + xr) {
 				if (sprite.xVel < 0) {
 					collideL(sprite);
 				}

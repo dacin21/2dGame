@@ -1,4 +1,4 @@
-package com.dacin.test.tile;
+package com.dacin.test.sprite.player;
 
 import java.util.Random;
 
@@ -6,7 +6,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.dacin.test.Controls;
 import com.dacin.test.Main;
-import com.dacin.test.sprite.PlayerShot;
+import com.dacin.test.sprite.player.PlayerShot;
 import com.dacin.test.sprite.Sprite;
 
 public class Player extends Sprite {
@@ -18,7 +18,7 @@ public class Player extends Sprite {
 	private Random random = new Random();
 	// private
 	private Controls input;
-	private byte jump = 0;
+	private byte jump = 1;
 	private boolean faceingRight = true;
 	private int shotCD = 0;
 	private boolean oldShot = false;
@@ -29,23 +29,23 @@ public class Player extends Sprite {
 		super(setX, setY);
 		this.input = input2;
 		xVel = yVel = 0;
+		xr=yr=8;
 	}
 
 	public void tick() {
-		super.tick();
 		if (input.reset) dead = false;
+		if(dead) return;
+		super.tick();
 		calcVel();
 	}
 
 	public void render() {
+		if(dead) return;
 		GL11.glPushMatrix();
 		GL11.glLoadIdentity();
 
 		GL11.glBegin(GL11.GL_TRIANGLE_FAN);
 		GL11.glColor3f(0.3f, 0.2f, 0.9f);
-		if (dead) {
-			GL11.glColor3f(1.0f, 0.0f, 0.0f);
-		}
 
 		final double pi2 = Math.PI * 2 / CORNERS;
 		
@@ -101,7 +101,7 @@ public class Player extends Sprite {
 			}
 
 		yVel -= GRAVITY;
-		jump |= 2;
+		air();
 
 
 		if (yVel < maxYVel) yVel = maxYVel;
@@ -128,6 +128,16 @@ public class Player extends Sprite {
 	public void teleport(float x, float y) {
 		this.x = x;
 		this.y = y;
+	}
+	public void kill(){
+		if(dead) return;
+		super.kill();
+		for(int i=0;i<100;i++){
+			Main.stage.addFriendlySprite(new Blood((int)x,(int)y));
+		}
+	}
+	public void air(){
+		jump|=2;
 	}
 
 }

@@ -2,10 +2,6 @@ package com.dacin.test;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
 
 import org.lwjgl.input.Keyboard;
 
@@ -20,7 +16,6 @@ public class Controls {
 	public Controls(){
 		reloadKeys();
 		up=down=left=right=shoot=jump=reset=ctrl=false;
-		int a = Keyboard.KEY_X;
 	}
 	
 	
@@ -120,6 +115,7 @@ public class Controls {
 	        }
 	        String everything = sb.toString();
 		    System.out.println(everything);
+		    br.close();
 	    } catch(Exception e){
 	    	e.printStackTrace();
 	    }

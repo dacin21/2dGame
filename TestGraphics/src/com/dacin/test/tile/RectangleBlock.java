@@ -12,29 +12,31 @@ import com.dacin.test.shader.Texture;
 import com.dacin.test.sprite.Sprite;
 import com.dacin.test.stage.Stage;
 
-public class RecktangleBlock extends Tile {
+public class RectangleBlock extends Tile {
 	
-	protected Texture texture;
+	private static final  Texture texture = new Texture("res/Textures/Tile/Block.jpg");
 	protected int ySize, xSize;
 
-	public RecktangleBlock(int setX, int setY, int sizeY, int sizeX, String Texturepath) {
+	public RectangleBlock(int setX, int setY, int sizeY, int sizeX) {
 		super(setX, setY);
-		texture = new Texture(Texturepath);
 		this.ySize=sizeY;
 		this.xSize=sizeX;
-		// TODO Auto-generated constructor stub
 	}
 	public void tick(){
-		colideSprite(Stage.player, 8);
-		for(Sprite e:Main.stage.friendlySprites) colideSprite(e,4);
+		colideSprite(Stage.player);
+		for(Sprite e:Main.stage.friendlySprites) colideSprite(e);
 	}
 	
 	public void render() {
+		renderWithTexture(texture);
+	}
+	protected void renderWithTexture(Texture tex){
+
 		GL11.glPushMatrix();
 		GL11.glLoadIdentity();
 		
 		ARBShaderObjects.glUseProgramObjectARB(ShaderUtils.TextureShaderId);
-		glBindTexture(GL_TEXTURE_2D,texture.getID());
+		glBindTexture(GL_TEXTURE_2D,tex.getID());
 
 		GL11.glBegin(GL11.GL_QUADS);
 		GL11.glColor3f(1.0f, 0.0f, 1.0f);
@@ -55,15 +57,17 @@ public class RecktangleBlock extends Tile {
 
 	}
 	
-	public void colideSprite(Sprite sprite, int radius) {
+	public void colideSprite(Sprite sprite) {
 		float px = sprite.x;
 		float py = sprite.y;
 		float pnx = sprite.getNewX();
 		float pny = sprite.getNewY();
+		int xr = sprite.xr;
+		int yr = sprite.yr;
 
 		// floor
-		if (py >= y + ySize + radius && pny < y + ySize + radius) {
-			if (((pnx > x - radius)||(px > x - radius)) && ((px < x + xSize + radius)||(pnx < x + xSize + radius))) {
+		if (py >= y + ySize + yr && pny < y + ySize + yr) {
+			if ((pnx > x - xr) && (pnx < x + xSize + xr)) {
 				if (sprite.yVel < 0) {
 					collideTop(sprite);
 				}
@@ -71,8 +75,8 @@ public class RecktangleBlock extends Tile {
 			}
 		}
 		// ceil
-		if (py <= y - radius && pny > y - radius) {
-			if (((pnx > x - radius)||(px > x - radius)) && ((px < x + xSize + radius)||(pnx < x + xSize + radius))) {
+		if (py <= y - yr && pny > y - yr) {
+			if ((px > x - xr) && (px < x + xSize + xr)) {
 				if (sprite.yVel > 0) {
 					collideBot(sprite);
 				}
@@ -80,15 +84,15 @@ public class RecktangleBlock extends Tile {
 		}
 		// wall
 		pny = sprite.getNewY();
-		if (py < y + ySize + radius && py > y - radius) {
+		if (pny < y + ySize + yr && pny > y - yr) {
 			// right
-			if (px <= x - radius && pnx > x - radius) {
+			if (px <= x - xr && pnx > x - xr) {
 				if (sprite.xVel > 0) {
 					collideR(sprite);
 				}
 			}
 			// left
-			if (px >= x + xSize + radius && pnx < x + xSize + radius) {
+			if (px >= x + xSize + xr && pnx < x + xSize + xr) {
 				if (sprite.xVel < 0) {
 					collideL(sprite);
 				}
@@ -99,19 +103,19 @@ public class RecktangleBlock extends Tile {
 
 	}
 	protected void collideTop(Sprite sprite) {
-		sprite.floor(y + ySize + 8);
+		sprite.floor(y + ySize + sprite.yr);
 	}
 
 	protected void collideBot(Sprite sprite) {
-		sprite.ceil(y - 8);
+		sprite.ceil(y - sprite.yr);
 	}
 
 	protected void collideR(Sprite sprite) {
-		sprite.wall(x - 8);
+		sprite.wall(x - sprite.xr);
 	}
 
 	protected void collideL(Sprite sprite) {
-		sprite.wall(x + xSize + 8);
+		sprite.wall(x + xSize + sprite.xr);
 	}
 
 }
