@@ -1,5 +1,6 @@
 package com.dacin.test.intro;
 
+import com.dacin.test.sprite.text.CharSprite;
 import com.dacin.test.sprite.text.StringSprite;
 import com.dacin.test.stage.Screen;
 import com.dacin.test.stage.Stage;
@@ -18,10 +19,21 @@ public class IntroStage extends Stage {
 		width = 5;
 		Screen tmpScreen;
 		final BackGround bg = new BackGround("res/Textures/Intro/BackGround.jpg");
+		//0
 		tmpScreen = screenFromFile.loadScreen("res/Levels/Intro/0.png", bg);
-		tmpScreen.addTile(new StringSprite(100,100,"accaa"));
+		CharSprite.SCALE=6;
+		tmpScreen.addTile(new StringSprite(20,500,"Tutorial"));
+		CharSprite.SCALE=2;
+		tmpScreen.addTile(new StringSprite(20,480," welcome to the tutorial/This is gonna teach you some things/you probably know already /have fun"));
 		this.addScreen(tmpScreen);
-		this.addScreen(screenFromFile.loadScreen("res/Levels/Intro/1.png", bg));
+		//1
+		tmpScreen = screenFromFile.loadScreen("res/Levels/Intro/1.png", bg);
+		CharSprite.SCALE=6;
+		tmpScreen.addTile(new StringSprite(20,500,"walking"));
+		CharSprite.SCALE=2;
+		tmpScreen.addTile(new StringSprite(20,480,"Use the arrow keys to walk arround"));
+		this.addScreen(tmpScreen);
+		//2
 		this.addScreen(screenFromFile.loadScreen("res/Levels/Intro/2.png", bg));
 		this.addScreen(screenFromFile.loadScreen("res/Levels/Intro/3.png", bg));
 		this.addScreen(screenFromFile.loadScreen("res/Levels/Intro/4.png", bg));

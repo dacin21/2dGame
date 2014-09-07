@@ -71,13 +71,12 @@ public class Player extends Sprite {
 		
 		
 		
-		if (input.left) {
+		if (input.right) {
+			faceingRight=true;
+			if (++xVel > maxXVel) xVel--;
+		}else {if (input.left) {
 			faceingRight=false;
 			if (--xVel < -maxXVel) xVel++;
-		} else {
-			if (input.right) {
-				faceingRight=true;
-				if (++xVel > maxXVel) xVel--;
 			} else xVel = 0;
 		}
 			/*
@@ -85,14 +84,15 @@ public class Player extends Sprite {
 			 */
 			if (input.jump) {
 				if (jump == 1) {
-					jump++;
+					jump ++;
 					yVel = 8.0f;
 					return;
 				} else if (jump == 3) {
-					jump++;
+					jump ++;
 					yVel = 7.0f;
 					return;
 				}
+				if((jump & 1) == 1) jump ++;
 			} else {
 				if ((jump & 1) == 0) {
 					jump++;

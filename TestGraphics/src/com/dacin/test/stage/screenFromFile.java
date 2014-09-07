@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 
 import org.lwjgl.opengl.Display;
 
+import com.dacin.test.intro.IntroFloor;
 import com.dacin.test.tile.BackGround;
 import com.dacin.test.tile.ConveyorBelt;
 import com.dacin.test.tile.SaveBlock;
@@ -84,6 +85,11 @@ public abstract class screenFromFile {
 				return;
 			case 0xFF009900:
 				screen.addTile(new ConveyorBelt(x-32, y-32, 16, 16));
+				return;
+			case 0xFF01FF00:
+				screen.addTile(new IntroFloor(x,0, 800, y));
+				System.out.print(y);
+				return;
 
 		}
 	}

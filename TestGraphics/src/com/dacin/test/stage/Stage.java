@@ -11,7 +11,7 @@ import com.dacin.test.sprite.player.Player;
 
 public abstract class Stage {
 	// public
-	public static Player player = new Player(100, 100, Main.input);
+	public static Player player = new Player(700, 100, Main.input);
 	// protected
 	protected ArrayList<Screen> screens = new ArrayList<Screen>();
 	protected ArrayList<Sprite> globalSprites = new ArrayList<Sprite>();
