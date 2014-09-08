@@ -24,17 +24,23 @@ public class IntroStage extends Stage {
 		CharSprite.SCALE=6;
 		tmpScreen.addTile(new StringSprite(20,500,"Tutorial"));
 		CharSprite.SCALE=2;
-		tmpScreen.addTile(new StringSprite(20,480," welcome to the tutorial/This is gonna teach you some things/you probably know already /have fun"));
+		tmpScreen.addTile(new StringSprite(20,460," welcome to the tutorial/This is gonna teach you some things/you probably know already /have fun"));
 		this.addScreen(tmpScreen);
 		//1
 		tmpScreen = screenFromFile.loadScreen("res/Levels/Intro/1.png", bg);
 		CharSprite.SCALE=6;
 		tmpScreen.addTile(new StringSprite(20,500,"walking"));
 		CharSprite.SCALE=2;
-		tmpScreen.addTile(new StringSprite(20,480,"Use the arrow keys to walk arround"));
+		tmpScreen.addTile(new StringSprite(20,460," Use the arrow keys to walk arround"));
 		this.addScreen(tmpScreen);
 		//2
-		this.addScreen(screenFromFile.loadScreen("res/Levels/Intro/2.png", bg));
+		tmpScreen = screenFromFile.loadScreen("res/Levels/Intro/2.png", bg);
+		CharSprite.SCALE=6;
+		tmpScreen.addTile(new StringSprite(20, 500, "Jumping"));
+		CharSprite.SCALE=2;
+		tmpScreen.addTile(new StringSprite(20, 460, " Press y to jump/Press y in midair to perform a double jump"));
+		this.addScreen(tmpScreen);
+		//3
 		this.addScreen(screenFromFile.loadScreen("res/Levels/Intro/3.png", bg));
 		this.addScreen(screenFromFile.loadScreen("res/Levels/Intro/4.png", bg));
 	}

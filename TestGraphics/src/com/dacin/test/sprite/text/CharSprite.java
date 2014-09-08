@@ -140,14 +140,24 @@ public class CharSprite extends Tile {
 				addDot(8, 1);
 				usedX += 9 * SCALE;
 				return;
-
-			case 'i':
-				addDot(1, 1);
-				addDot(1, 6);
-				// TODO: Split of i-Dot
-				addDot(1, 10);
+				
+			case '^':
+				//used for dots on i/j
+				addDot(1, 9);
 				addDot(1, 11);
 				usedX += 2 * SCALE;
+				return;
+
+			case 'i':
+				//use ^ afterwards
+				addDot(1, 1);
+				addDot(1, 7);
+				return;
+
+			case 'j':
+				addDot(1, -3);
+				addDot(1, 7);
+				//use ^ afterwards
 				return;
 
 			case 'k':

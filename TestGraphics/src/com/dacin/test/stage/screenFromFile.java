@@ -8,7 +8,9 @@ import javax.imageio.ImageIO;
 
 import org.lwjgl.opengl.Display;
 
-import com.dacin.test.intro.IntroFloor;
+import com.dacin.test.intro.IntroGrass;
+import com.dacin.test.intro.RockFloor;
+import com.dacin.test.intro.TreeBackGroundTile;
 import com.dacin.test.tile.BackGround;
 import com.dacin.test.tile.ConveyorBelt;
 import com.dacin.test.tile.SaveBlock;
@@ -65,31 +67,74 @@ public abstract class screenFromFile {
 	}
 
 	protected static void parsePixel(int x, int y, int pixel, Screen screen) {
+		/* erste 32x32 pixel => Ecke unten Links offScreen!
+		 * 
+		 */
+		y-=4;
+		x-=4;
 		x <<= GRIDPOWER;
 		y <<= GRIDPOWER;
 		switch (pixel) {
 			case 0xFF00FF00:
-				screen.addTile(new SolidBlock(x - 32, y - 32));
+				screen.addTile(new SolidBlock(x, y));
 				return;
 			case 0xFFFFFFFF:
-				screen.addTile(new Spike(x - 16, y - 16, 0));
+				screen.addTile(new Spike(x + 16, y + 16, 0));
 				return;
 			case 0xFFFFFFFE:
-				screen.addTile(new Spike(x - 16, y - 16, 1));
+				screen.addTile(new Spike(x + 16, y + 16, 1));
 				return;
 			case 0xFFFFFFFD:
-				screen.addTile(new Spike(x - 16, y - 16, 2));
+				screen.addTile(new Spike(x + 16, y + 16, 2));
 				return;
 			case 0xFFFFFFFC:
-				screen.addTile(new Spike(x - 16, y - 16, 3));
+				screen.addTile(new Spike(x + 16, y + 16, 3));
 				return;
 			case 0xFF009900:
-				screen.addTile(new ConveyorBelt(x-32, y-32, 16, 16));
+				screen.addTile(new ConveyorBelt(x, y, 16, 16));
 				return;
 			case 0xFF01FF00:
-				screen.addTile(new IntroFloor(x,0, 800, y));
-				System.out.print(y);
+				screen.addTile(new IntroGrass(x,y,32 , 32));
 				return;
+			case 0xFFCC9000:
+				screen.addTile(new RockFloor(x,y,32 , 32));
+				return;
+				//Tree start
+			case 0xFF00FFF0:
+				screen.addTile(new TreeBackGroundTile(x,y,32,32,0));
+				return;
+			case 0xFF00FFF1:
+				screen.addTile(new TreeBackGroundTile(x,y,32,32,1));
+				return;
+			case 0xFF00FFF2:
+				screen.addTile(new TreeBackGroundTile(x,y,32,32,2));
+				return;
+			case 0xFF00FFF3:
+				screen.addTile(new TreeBackGroundTile(x,y,32,32,3));
+				return;
+			case 0xFF00FFF4:
+				screen.addTile(new TreeBackGroundTile(x,y,32,32,4));
+				return;
+			case 0xFF00FFF5:
+				screen.addTile(new TreeBackGroundTile(x,y,32,32,5));
+				return;
+			case 0xFF00FFF6:
+				screen.addTile(new TreeBackGroundTile(x,y,32,32,6));
+				return;
+			case 0xFF00FFF7:
+				screen.addTile(new TreeBackGroundTile(x,y,32,32,7));
+				return;
+			case 0xFF00FFF8:
+				screen.addTile(new TreeBackGroundTile(x,y,32,32,8));
+				return;
+			case 0xFF00FFF9:
+				screen.addTile(new TreeBackGroundTile(x,y,32,32,9));
+				return;
+			case 0xFF00FFFA:
+				screen.addTile(new TreeBackGroundTile(x,y,32,32,10));
+				return;
+				//Tree stop
+				
 
 		}
 	}
