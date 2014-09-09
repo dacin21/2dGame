@@ -32,7 +32,7 @@ public class ConveyorBelt extends RectangleBlock {
 
 		// floor
 		if (pny <= y + ySize + yr) {
-			if ((pnx >= x) && (pnx < x + xSize)) {
+			if ((pnx > x) && (pnx <= x + xSize)) {
 					collideTop(sprite);
 
 			}

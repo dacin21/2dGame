@@ -38,6 +38,12 @@ public abstract class screenFromFile {
 		return screen;
 
 	}
+	public static Screen loadScreen(String filePath, Screen screen) {
+		convertPixels(loadImage(filePath), screen);
+		screen.addTile(new SaveBlock(200, 100));
+		return screen;
+
+	}
 
 	public static int[] loadImage(String filePath) {
 
@@ -58,8 +64,8 @@ public abstract class screenFromFile {
 	}
 
 	protected static void convertPixels(int[] pixels, Screen screen) {
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
 				if (pixels[x + y * width] == 0xFF000000) continue;
 				parsePixel(x, height-y, pixels[x + y * width], screen);
 			}
@@ -101,38 +107,55 @@ public abstract class screenFromFile {
 				return;
 				//Tree start
 			case 0xFF00FFF0:
-				screen.addTile(new TreeBackGroundTile(x,y,32,32,0));
+				screen.addBgTile(new TreeBackGroundTile(x,y-8,32,32,0));
 				return;
 			case 0xFF00FFF1:
-				screen.addTile(new TreeBackGroundTile(x,y,32,32,1));
+				screen.addBgTile(new TreeBackGroundTile(x,y-8,32,32,1));
 				return;
 			case 0xFF00FFF2:
-				screen.addTile(new TreeBackGroundTile(x,y,32,32,2));
+				screen.addBgTile(new TreeBackGroundTile(x,y-8,32,32,2));
 				return;
 			case 0xFF00FFF3:
-				screen.addTile(new TreeBackGroundTile(x,y,32,32,3));
+				screen.addBgTile(new TreeBackGroundTile(x,y-8,32,32,3));
 				return;
 			case 0xFF00FFF4:
-				screen.addTile(new TreeBackGroundTile(x,y,32,32,4));
+				screen.addBgTile(new TreeBackGroundTile(x,y-8,32,32,4));
 				return;
 			case 0xFF00FFF5:
-				screen.addTile(new TreeBackGroundTile(x,y,32,32,5));
+				screen.addBgTile(new TreeBackGroundTile(x,y-8,32,32,5));
 				return;
 			case 0xFF00FFF6:
-				screen.addTile(new TreeBackGroundTile(x,y,32,32,6));
+				screen.addBgTile(new TreeBackGroundTile(x,y-8,32,32,6));
 				return;
 			case 0xFF00FFF7:
-				screen.addTile(new TreeBackGroundTile(x,y,32,32,7));
+				screen.addBgTile(new TreeBackGroundTile(x,y-8,32,32,7));
 				return;
 			case 0xFF00FFF8:
-				screen.addTile(new TreeBackGroundTile(x,y,32,32,8));
+				screen.addBgTile(new TreeBackGroundTile(x,y-8,32,32,8));
 				return;
 			case 0xFF00FFF9:
-				screen.addTile(new TreeBackGroundTile(x,y,32,32,9));
+				screen.addBgTile(new TreeBackGroundTile(x,y-8,32,32,9));
 				return;
 			case 0xFF00FFFA:
-				screen.addTile(new TreeBackGroundTile(x,y,32,32,10));
+				screen.addBgTile(new TreeBackGroundTile(x,y-8,32,32,10));
 				return;
+			case 0xFF00FFFB:
+				screen.addBgTile(new TreeBackGroundTile(x,y-8,32,32,11));
+				return;
+			case 0xFF00FFFC:
+				screen.addBgTile(new TreeBackGroundTile(x,y-8,32,32,12));
+				return;
+				//TreeTrunk
+			case 0xFF00FFFD:
+				screen.addBgTile(new TreeBackGroundTile(x,y-8,32,32,13));
+				return;
+			case 0xFF00FFFE:
+				screen.addBgTile(new TreeBackGroundTile(x,y-8,32,32,14));
+				return;
+			case 0xFF00FFFF:
+				screen.addBgTile(new TreeBackGroundTile(x-32,y-8-32,64,64,15));
+				return;
+				//TreeTrunk stop
 				//Tree stop
 				
 

@@ -12,6 +12,7 @@ public class Screen {
 
 	// protected
 	protected ArrayList<Tile> tiles = new ArrayList<Tile>();
+	protected ArrayList<Tile> bgTiles = new ArrayList<Tile>();
 	protected ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 	protected ArrayList<Sprite> origSprites = new ArrayList<Sprite>();
 	protected BackGround background;
@@ -25,6 +26,9 @@ public class Screen {
 
 	public void addTile(Tile tile) {
 		tiles.add(tile);
+	}
+	public void addBgTile(Tile tile){
+		bgTiles.add(tile);
 	}
 
 	public void addSprite(Sprite sprite) {
@@ -44,8 +48,9 @@ public class Screen {
 
 	public void Render() {
 		background.render();
-		for(Sprite e:sprites) e.render();
+		for(Tile e:bgTiles) e.render();
 		for(Tile e:tiles) e.render();
+		for(Sprite e:sprites) e.render();
 	}
 	
 	public void Init(){

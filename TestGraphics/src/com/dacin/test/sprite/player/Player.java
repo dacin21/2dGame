@@ -13,7 +13,7 @@ public class Player extends Sprite {
 	// Const
 	private static final int CORNERS = 15;
 	private static final float GRAVITY = 0.5f;
-	private static final float maxXVel = 3;
+	private static final float maxXVel = 13;
 	private static final float maxYVel = -8;
 	private Random random = new Random();
 	// private

@@ -309,7 +309,30 @@ public class CharSprite extends Tile {
 				usedX+=8*SCALE;
 				return;
 			//TODO: Uppercase Letters
+
 				
+				
+			case 'J':
+				addDot(7,14);
+				addDot(7,5);
+				addDot(6,2);
+				addDot(4,1);
+				addDot(2,2);
+				addDot(1,5);
+				usedX+=8* SCALE;
+				
+				return;
+				
+			case 'P':
+				addDot(1,1);
+				addDot(1,14);
+				addDot(5,14);
+				addDot(8,11);
+				addDot(8,9);
+				addDot(5,6);
+				addDot(1,6);
+				usedX+=9*SCALE;
+				return;
 			case 'S':
 				addDot(1,3);
 				addDot(3,1);
@@ -333,9 +356,27 @@ public class CharSprite extends Tile {
 				addDot(5,14);
 				addDot(9,14);
 				usedX+=10*SCALE;
+				return;
+				
+			case 'U':
+				addDot(1,14);
+				addDot(1,5);
+				addDot(3,2);
+				addDot(5,1);
+				addDot(7,2);
+				addDot(9,5);
+				addDot(9,14);
+				usedX+=10*SCALE;
+				return;
 
 			case 'W':
-				
+
+				addDot(1,14);
+				addDot(3,1);
+				addDot(5,6);
+				addDot(7,1);
+				addDot(9,14);
+				usedX+=10*SCALE;
 				return;
 
 
