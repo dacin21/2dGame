@@ -12,10 +12,8 @@ public class StringSprite extends Tile {
 	public StringSprite(int setX, int setY, String string) {
 		super(setX, setY);
 		CharSprite.reline();
-		System.out.println(string);
 		string = string.replace("i", "i^");
 		string = string.replace("j", "j^");
-		System.out.println(string);
 		charSprites = new Tile[string.length()];
 		for (char e : string.toCharArray()){
 			parseChar(e);

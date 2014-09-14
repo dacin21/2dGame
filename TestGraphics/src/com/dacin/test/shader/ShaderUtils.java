@@ -25,6 +25,7 @@ public class ShaderUtils {
 	private ShaderUtils() {
 	}
 	public static int TextureShaderId = ShaderUtils.load("res/Shaders/Texture.vert", "res/Shaders/Texture.frag");
+	public static int RGBTextureShaderId = ShaderUtils.load("res/Shaders/RGBTexture.vert", "res/Shaders/RGBTexture.frag");
 
 	public static int load(String vertPath, String fragPath) {
 		String vert = loadAsString(vertPath);

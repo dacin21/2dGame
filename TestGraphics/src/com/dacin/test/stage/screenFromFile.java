@@ -27,20 +27,17 @@ public abstract class screenFromFile {
 	public static Screen loadScreen(String filePath) {
 		Screen screen = new Screen();
 		convertPixels(loadImage(filePath), screen);
-		screen.addTile(new SaveBlock(200, 100));
 		return screen;
 
 	}
 	public static Screen loadScreen(String filePath, BackGround bg) {
 		Screen screen = new Screen(bg);
 		convertPixels(loadImage(filePath), screen);
-		screen.addTile(new SaveBlock(200, 100));
 		return screen;
 
 	}
 	public static Screen loadScreen(String filePath, Screen screen) {
 		convertPixels(loadImage(filePath), screen);
-		screen.addTile(new SaveBlock(200, 100));
 		return screen;
 
 	}
@@ -83,6 +80,9 @@ public abstract class screenFromFile {
 		switch (pixel) {
 			case 0xFF00FF00:
 				screen.addTile(new SolidBlock(x, y));
+				return;
+			case 0xFFFFFF00:
+				screen.addTile(new SaveBlock(x,y+16));
 				return;
 			case 0xFFFFFFFF:
 				screen.addTile(new Spike(x + 16, y + 16, 0));

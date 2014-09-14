@@ -110,8 +110,9 @@ public abstract class Stage {
 	public void setScreen(int index){setScreen((byte) index );}
 
 	public void setScreen(byte index) {
-		activScreen = screens.get(index);
-		save = new SavePoint(player, index);
+		screenNum = index;
+		activScreen = screens.get(screenNum);
+		this.save();
 	}
 	public void addGlobalSprite(Sprite sprite){
 		globalSprites.add(sprite);

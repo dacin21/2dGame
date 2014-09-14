@@ -17,7 +17,11 @@ public class Spike extends Tile {
 	private int rotation; // 0^ 1> 2v 3<
 
 	private static final Texture texture = new Texture("res/Textures/Tile/Spike.png");
-
+	/**This tile has its x,y in the centre
+	 * 
+	 * @param setX, setY
+	 * @param r Rotation
+	 */
 	public Spike(int setX, int setY, int r) {
 		super(setX, setY);
 		rotation = r;
